@@ -5,6 +5,7 @@
 #include <numeric>
 #include <algorithm>
 #include <limits>
+#include <random>
 
 using namespace std;
 
@@ -17,7 +18,7 @@ struct Studentai{
     double balas_mediana;
 };
 
-void Skaitymas(vector<Studentai> & A){
+void Skaitymas_ranka(vector<Studentai> & A){
     int n=0;
     cout<<"Iveskite studentu skaiciu: ";
     while(n==0){
@@ -69,6 +70,54 @@ void Skaitymas(vector<Studentai> & A){
                 cout<<"Pazymys turi buti tarp 1 ir 10. Bandykite dar karta."<<endl;
         }
         m.pazymys_egzaminas = laikinas;
+        A.push_back(m);
+    }
+}
+
+void Skaitymas_generavimas(vector<Studentai> & A){
+    int n=0;
+    cout<<"Iveskite studentu skaiciu: ";
+    while(n==0){
+        cin>>n;
+        if(!cin){
+            n=0;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout<<"Ivestis turi buti skaicius. Bandykite dar karta."<<endl;
+        }
+    }
+
+    for(int i=0; i<n; i++){
+        Studentai m;
+        cout<<"Studentas nr. "<<i+1<<endl;
+        cout<<"Vardas: ";
+        cin>>m.vardas;
+        cout<<"Pavarde: ";
+        cin>>m.pavarde;
+
+        int pazymiu_sk=0;
+        cout<<"Iveskite namu darbu pazymiu skaiciu: ";
+        while(pazymiu_sk==0){
+            cin>>pazymiu_sk;
+            if(!cin){
+                pazymiu_sk=0;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout<<"Ivestis turi buti skaicius. Bandykite dar karta."<<endl;
+            }
+        }
+
+        random_device seed;
+        mt19937 gen{seed()};
+        uniform_int_distribution<> dist(1, 10);
+
+        cout<<"Sugeneruoti namu darbu pazymiai: ";
+        for(int j=0; j<pazymiu_sk; j++){
+            m.pazymiai_nd.push_back(dist(gen));
+            cout<<m.pazymiai_nd[j]<<" ";
+        }
+        m.pazymys_egzaminas=dist(gen);
+        cout<<endl<<"Sugeneruotas egzamino pazymys: "<<m.pazymys_egzaminas<<endl;
         A.push_back(m);
     }
 }
@@ -137,8 +186,26 @@ void Rasymas(vector<Studentai> & A){
 int main(){
     vector<Studentai> A;
     int isvestis = 0;
+    int duomenu_ivedimas = 0;
 
-    Skaitymas(A);
+    cout<<"Pasirinkite duomenu ivedimo buda ivesdami atitinkama skaiciu:"<<endl;
+    cout<<"(1) Rankiniu budu"<<endl<<"(2) Pazymiai generuojami atsitiktiniu budu"<<endl;
+    while(duomenu_ivedimas!=1 && duomenu_ivedimas!=2){
+        cin>>duomenu_ivedimas;
+        if(!cin){
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                duomenu_ivedimas=0;
+                cout<<"Netinkama ivestis. Bandykite dar karta."<<endl;
+                continue;
+            }
+    }
+
+    if(duomenu_ivedimas==1)
+        Skaitymas_ranka(A);
+    else if(duomenu_ivedimas==2)
+        Skaitymas_generavimas(A);
+
     Vidurkiai(A);
     Mediana(A);
     Rasymas(A);
