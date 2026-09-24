@@ -122,6 +122,41 @@ void Skaitymas_generavimas(vector<Studentai> & A){
     }
 }
 
+void Skaitymas_failo(vector<Studentai> & A){
+    string duomenys;
+
+    cout<<"Iveskite failo pavadinima:"<<endl;
+    cin>>duomenys;
+
+    ifstream fd(duomenys);
+
+    if (!fd.is_open()) {
+        cout<<"Nepavyko atidaryti failo"<<endl;
+    }
+
+    string temp;
+    getline(fd, temp);
+
+    while(getline(fd, temp)){
+        stringstream ss(temp);
+        Studentai m;
+
+        ss>>m.vardas>>m.pavarde;
+        vector<int> Pazymiai;
+        int p;
+        while(ss>>p)
+            Pazymiai.push_back(p);
+
+        m.pazymys_egzaminas = Pazymiai.back();
+        Pazymiai.pop_back();
+        m.pazymiai_nd = Pazymiai;
+
+        A.push_back(m);
+    }
+
+    fd.close();
+}
+
 void Vidurkiai(vector<Studentai> & A){
     for(int i=0; i<A.size(); i++){
         double nd_vidurkis = accumulate(A[i].pazymiai_nd.begin(), A[i].pazymiai_nd.end(), 0) / A[i].pazymiai_nd.size();
@@ -189,8 +224,8 @@ int main(){
     int duomenu_ivedimas = 0;
 
     cout<<"Pasirinkite duomenu ivedimo buda ivesdami atitinkama skaiciu:"<<endl;
-    cout<<"(1) Rankiniu budu"<<endl<<"(2) Pazymiai generuojami atsitiktiniu budu"<<endl;
-    while(duomenu_ivedimas!=1 && duomenu_ivedimas!=2){
+    cout<<"(1) Rankiniu budu"<<endl<<"(2) Pazymiai generuojami atsitiktiniu budu"<<endl<<"(3) Duomenys skaitomi is failo"<<endl;
+    while(duomenu_ivedimas!=1 && duomenu_ivedimas!=2 && duomenu_ivedimas!=3){
         cin>>duomenu_ivedimas;
         if(!cin){
                 cin.clear();
@@ -205,6 +240,8 @@ int main(){
         Skaitymas_ranka(A);
     else if(duomenu_ivedimas==2)
         Skaitymas_generavimas(A);
+    else if(duomenu_ivedimas==3)
+        Skaitymas_failo(A);
 
     Vidurkiai(A);
     Mediana(A);
