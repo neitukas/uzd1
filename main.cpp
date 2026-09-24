@@ -157,6 +157,13 @@ void Skaitymas_failo(vector<Studentai> & A){
     fd.close();
 }
 
+void Rusiavimas(vector<Studentai> & A) {
+    sort(A.begin(), A.end(),
+         [](const Studentai & a, const Studentai & b) {
+             return a.vardas < b.vardas;
+         });
+}
+
 void Vidurkiai(vector<Studentai> & A){
     for(int i=0; i<A.size(); i++){
         double nd_vidurkis = accumulate(A[i].pazymiai_nd.begin(), A[i].pazymiai_nd.end(), 0) / A[i].pazymiai_nd.size();
@@ -243,6 +250,7 @@ int main(){
     else if(duomenu_ivedimas==3)
         Skaitymas_failo(A);
 
+    Rusiavimas(A);
     Vidurkiai(A);
     Mediana(A);
     Rasymas(A);
