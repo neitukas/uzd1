@@ -16,6 +16,7 @@ struct Studentai{
     int pazymys_egzaminas;
     double balas_vidurkis;
     double balas_mediana;
+    bool skirstymas;
 };
 
 void Skaitymas_ranka(vector<Studentai> & A){
@@ -169,6 +170,10 @@ void Vidurkiai(vector<Studentai> & A){
         double nd_vidurkis = accumulate(A[i].pazymiai_nd.begin(), A[i].pazymiai_nd.end(), 0) / A[i].pazymiai_nd.size();
         double vidurkis = 0.4 * nd_vidurkis + 0.6 * A[i].pazymys_egzaminas;
         A[i].balas_vidurkis = vidurkis;
+        if(vidurkis<5)
+            A[i].skirstymas = 0;
+        else
+            A[i].skirstymas = 1;
     }
 }
 
@@ -249,16 +254,22 @@ void GeneruotiFailus(int studentu_sk, int nd_skaicius, string failas){
     fr.close();
 }
 
+void Skirstymas(vector<Studentai> & A){
+
+}
+
 int main(){
     vector<Studentai> A;
     int isvestis = 0;
     int duomenu_ivedimas = 0;
 
+    /*
     GeneruotiFailus(1000, 3, "stud1000.txt");
     GeneruotiFailus(10000, 3, "stud10000.txt");
     GeneruotiFailus(100000, 3, "stud100000.txt");
     GeneruotiFailus(1000000, 3, "stud1000000.txt");
     GeneruotiFailus(10000000, 3, "stud10000000.txt");
+    */
 
     cout<<"Pasirinkite duomenu ivedimo buda ivesdami atitinkama skaiciu:"<<endl;
     cout<<"(1) Rankiniu budu"<<endl<<"(2) Pazymiai generuojami atsitiktiniu budu"<<endl<<"(3) Duomenys skaitomi is failo"<<endl;
