@@ -225,12 +225,40 @@ void Rasymas(vector<Studentai> & A){
         }
     }
     cout<<"Jusu rezultatai isvesti i faila 'rezu.txt'."<<endl;
+    fr.close();
+}
+
+void GeneruotiFailus(int studentu_sk, int nd_skaicius, string failas){
+    ofstream fr(failas);
+    fr<<setw(20)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde";
+    for(int i=0; i<nd_skaicius; i++){
+        fr<<"ND"<<setw(10)<<left<<i+1;
+    }
+    fr<<"Egz."<<endl;
+    for(int i=0; i<studentu_sk; i++){
+
+        random_device seed;
+        mt19937 gen{seed()};
+        uniform_int_distribution<> dist(1, 10);
+
+        fr<<"Vardas"<<setw(14)<<left<<i+1<<"Pavarde"<<setw(13)<<left<<i+1;
+        for(int j=0; j<nd_skaicius+1; j++)
+            fr<<setw(11)<<left<<dist(gen)<<" ";
+        fr<<endl;
+    }
+    fr.close();
 }
 
 int main(){
     vector<Studentai> A;
     int isvestis = 0;
     int duomenu_ivedimas = 0;
+
+    GeneruotiFailus(1000, 3, "stud1000.txt");
+    GeneruotiFailus(10000, 3, "stud10000.txt");
+    GeneruotiFailus(100000, 3, "stud100000.txt");
+    GeneruotiFailus(1000000, 3, "stud1000000.txt");
+    GeneruotiFailus(10000000, 3, "stud10000000.txt");
 
     cout<<"Pasirinkite duomenu ivedimo buda ivesdami atitinkama skaiciu:"<<endl;
     cout<<"(1) Rankiniu budu"<<endl<<"(2) Pazymiai generuojami atsitiktiniu budu"<<endl<<"(3) Duomenys skaitomi is failo"<<endl;
