@@ -1,5 +1,18 @@
 #include "main.h"
 
+template <typename Funkcija>
+long long MatuotiLaika(Funkcija f) {
+    auto pradzia = chrono::high_resolution_clock::now();
+
+    f();
+
+    auto pabaiga = chrono::high_resolution_clock::now();
+
+    return chrono::duration_cast<chrono::microseconds>(
+        pabaiga - pradzia
+    ).count();
+}
+
 void Skaitymas_ranka(vector<Studentai> & A){
     int n=0;
     cout<<"Iveskite studentu skaiciu: ";
