@@ -255,7 +255,26 @@ void GeneruotiFailus(int studentu_sk, int nd_skaicius, string failas){
 }
 
 void Skirstymas(vector<Studentai> & A){
+    ofstream fr("stud_vargseliai.txt");
+    ofstream ft("stud_galvuciai.txt");
 
+    for(int i=0; i<size(A); i++){
+        if(A[i].skirstymas == 0){
+            fr<<setw(14)<<left<<A[i].vardas<<setw(13)<<left<<A[i].pavarde;
+            for(int j=0; j<size(A[i].pazymiai_nd); j++)
+                fr<<setw(11)<<left<<A[i].pazymiai_nd[j]<<" ";
+            fr<<A[i].pazymys_egzaminas<<endl;
+        }
+        else{
+            ft<<setw(14)<<left<<A[i].vardas<<setw(13)<<left<<A[i].pavarde;
+            for(int j=0; j<size(A[i].pazymiai_nd); j++)
+                ft<<setw(11)<<left<<A[i].pazymiai_nd[j]<<" ";
+            ft<<A[i].pazymys_egzaminas<<endl;
+        }
+    }
+
+    fr.close();
+    ft.close();
 }
 
 int main(){
@@ -295,6 +314,7 @@ int main(){
     Vidurkiai(A);
     Mediana(A);
     Rasymas(A);
+    Skirstymas(A);
 
     return 0;
 }
