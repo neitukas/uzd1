@@ -9,6 +9,7 @@
 #include <limits>
 #include <random>
 #include <chrono>
+#include <list>
 
 using namespace std;
 
@@ -22,14 +23,10 @@ struct Studentai{
     bool skirstymas;
 };
 
-void Skaitymas_ranka(Studentai);
-void Skaitymas_generavimas(Studentai);
 void Skaitymas_failo(Studentai);
 void Rusiavimas(Studentai);
 void Vidurkiai(Studentai);
 void Mediana(Studentai);
 void Rasymas(Studentai);
-void Testavimas(Studentai);
-
-void GeneruotiFailus(int, int, string);
+void Testavimas(Studentai, string);
 void Skirstymas(Studentai);
