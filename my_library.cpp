@@ -117,12 +117,7 @@ void Skaitymas_generavimas(vector<Studentai> & A){
     }
 }
 
-void Skaitymas_failo(vector<Studentai> & A){
-    string duomenys;
-
-    cout<<"Iveskite failo pavadinima:"<<endl;
-    cin>>duomenys;
-
+void Skaitymas_failo(vector<Studentai> & A, string & duomenys){
     ifstream fd(duomenys);
 
     if (!fd.is_open()) {
@@ -269,4 +264,29 @@ void Skirstymas(vector<Studentai> & A){
 
     fr.close();
     ft.close();
+}
+
+void Testavimas(vector<Studentai> & A){
+    string duomenys;
+
+    cout<<"Iveskite failo pavadinima:"<<endl;
+    cin>>duomenys;
+
+    auto laikas = MatuotiLaika([&](){
+            Skaitymas_failo(A, duomenys);
+        });
+    cout<<"Failo nuskaitymas: "<<laikas<<" mikrosek."<<endl;
+
+    laikas = MatuotiLaika([&](){
+            Rusiavimas(A);
+        });
+    cout<<"Duomenu rusiavimas: "<<laikas<<" mikrosek."<<endl;
+
+    Vidurkiai(A);
+    Mediana(A);
+
+    laikas = MatuotiLaika([&](){
+            Rasymas(A);
+        });
+    cout<<"Duomenu rasymas: "<<laikas<<" mikrosek."<<endl;
 }
