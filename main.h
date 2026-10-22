@@ -29,6 +29,7 @@ void Rusiavimas(Studentai);
 void Vidurkiai(Studentai);
 void Mediana(Studentai);
 void Rasymas(Studentai);
+void Testavimas(Studentai);
 
 void GeneruotiFailus(int, int, string);
 void Skirstymas(Studentai);
