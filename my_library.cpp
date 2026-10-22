@@ -182,7 +182,7 @@ void Mediana(vector<Studentai> & A){
 
 void Rasymas(vector<Studentai> & A){
     ofstream fr("rezu.txt");
-    int isvestis = 0;
+    /*int isvestis = 0;
     cout<<"Kuriuos rodmenis norite matyti? Pasirinkite atitinkama skaiciu:"<<endl;
     cout<<"(1) Vidurkis"<<endl<<"(2) Mediana"<<endl<<"(3) Vidurkis ir mediana"<<endl;
     while(isvestis!=1 && isvestis!=2 && isvestis!=3){
@@ -196,7 +196,9 @@ void Rasymas(vector<Studentai> & A){
             }
         else if(isvestis!=1 && isvestis!=2 && isvestis!=3)
             cout<<"Netinkama ivestis. Bandykite dar karta:"<<endl;
-    }
+    }*/
+
+    int isvestis=3;
     if(isvestis==1){
         fr<<setw(20)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"<<setw(20)<<left<<"Galutinis balas (vid.)"<<endl;
         fr<<"-------------------------------------------------------------"<<endl;
@@ -218,7 +220,7 @@ void Rasymas(vector<Studentai> & A){
             fr<<setw(20)<<left<<A[i].vardas<<setw(20)<<left<<A[i].pavarde<<setw(30)<<left<<fixed<<setprecision(2)<<A[i].balas_vidurkis<<setw(20)<<left<<fixed<<setprecision(2)<<A[i].balas_mediana<<endl;
         }
     }
-    cout<<"Jusu rezultatai isvesti i faila 'rezu.txt'."<<endl;
+    /*cout<<"Jusu rezultatai isvesti i faila 'rezu.txt'."<<endl;*/
     fr.close();
 }
 
@@ -275,12 +277,14 @@ void Testavimas(vector<Studentai> & A){
     auto laikas = MatuotiLaika([&](){
             Skaitymas_failo(A, duomenys);
         });
-    cout<<"Failo nuskaitymas: "<<laikas<<" mikrosek."<<endl;
+    cout<<"Failo nuskaitymas: "<<laikas/1000<<" milisek."<<endl;
+
+    Rusiavimas(A);
 
     laikas = MatuotiLaika([&](){
-            Rusiavimas(A);
+            Skirstymas(A);
         });
-    cout<<"Duomenu rusiavimas: "<<laikas<<" mikrosek."<<endl;
+    cout<<"Duomenu skirstymas: "<<laikas/1000<<" milisek."<<endl;
 
     Vidurkiai(A);
     Mediana(A);
@@ -288,5 +292,5 @@ void Testavimas(vector<Studentai> & A){
     laikas = MatuotiLaika([&](){
             Rasymas(A);
         });
-    cout<<"Duomenu rasymas: "<<laikas<<" mikrosek."<<endl;
+    cout<<"Duomenu rasymas: "<<laikas/1000<<" milisek."<<endl;
 }
