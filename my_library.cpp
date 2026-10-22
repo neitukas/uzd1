@@ -1,14 +1,14 @@
 #include "main.h"
 
 template <typename Funkcija>
-long long MatuotiLaika(Funkcija f) {
+double MatuotiLaika(Funkcija f) {
     auto pradzia = chrono::high_resolution_clock::now();
 
     f();
 
     auto pabaiga = chrono::high_resolution_clock::now();
 
-    return chrono::duration_cast<chrono::microseconds>(
+    return chrono::duration_cast<chrono::duration<double>>(
         pabaiga - pradzia
     ).count();
 }
@@ -268,23 +268,20 @@ void Skirstymas(vector<Studentai> & A){
     ft.close();
 }
 
-void Testavimas(vector<Studentai> & A){
-    string duomenys;
+void Testavimas(vector<Studentai> & A, string & duomenys){
+    cout<<"Duomenu failas: "<<duomenys<<endl;
 
-    cout<<"Iveskite failo pavadinima:"<<endl;
-    cin>>duomenys;
-
-    auto laikas = MatuotiLaika([&](){
+    double laikas = MatuotiLaika([&](){
             Skaitymas_failo(A, duomenys);
         });
-    cout<<"Failo nuskaitymas: "<<laikas/1000<<" milisek."<<endl;
+    cout<<"Failo nuskaitymas: "<<fixed<<setprecision(6)<<laikas<<" sek. "<<endl;
 
     Rusiavimas(A);
 
     laikas = MatuotiLaika([&](){
             Skirstymas(A);
         });
-    cout<<"Duomenu skirstymas: "<<laikas/1000<<" milisek."<<endl;
+    cout<<"Duomenu skirstymas: "<<laikas<<" sek."<<endl;
 
     Vidurkiai(A);
     Mediana(A);
@@ -292,5 +289,7 @@ void Testavimas(vector<Studentai> & A){
     laikas = MatuotiLaika([&](){
             Rasymas(A);
         });
-    cout<<"Duomenu rasymas: "<<laikas/1000<<" milisek."<<endl;
+    cout<<"Duomenu rasymas: "<<laikas<<" sek."<<endl;
+
+    cout<<endl;
 }
