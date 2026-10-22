@@ -30,7 +30,8 @@ int main(){
         cout<<"Duomenu nuskaitymo laikas: "<<laikas<<" mikrosek."<<endl;
     }*/
 
-    Testavimas(A);
+    string duom = "stud1000.txt";
+    Testavimas(A, duom);
 
     return 0;
 }
