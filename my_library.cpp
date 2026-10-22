@@ -78,10 +78,11 @@ void Mediana(list<Studentai> & A){
 void Rasymas(list<Studentai> & A){
     ofstream fr("rezu.txt");
 
-    fr<<setw(20)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"<<setw(30)<<left<<"Galutinis balas (vid.)"<<setw(20)<<left<<"Galutinis balas (med.)"<<endl;
-    fr<<"-------------------------------------------------------------------------------------------"<<endl;
+    fr<<setw(20)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"<<setw(30)<<left<<"Galutinis balas (vid.)"<<setw(30)<<left<<"Galutinis balas (med.)"<<setw(30)<<left<<"Adresas"<<endl;
+    fr<<"------------------------------------------------------------------------------------------------------------------------"<<endl;
     for(const auto & studentas : A){
-        fr<<setw(20)<<left<<studentas.vardas<<setw(20)<<left<<studentas.pavarde<<setw(30)<<left<<fixed<<setprecision(2)<<studentas.balas_vidurkis<<setw(20)<<left<<fixed<<setprecision(2)<<studentas.balas_mediana<<endl;
+        fr<<setw(20)<<left<<studentas.vardas<<setw(20)<<left<<studentas.pavarde<<setw(30)<<left<<fixed<<setprecision(2)<<studentas.balas_vidurkis<<
+        setw(30)<<left<<fixed<<setprecision(2)<<studentas.balas_mediana<<setw(30)<<left<<&studentas<<endl;
     }
     fr.close();
 }
