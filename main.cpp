@@ -2,7 +2,7 @@
 #include "my_library.cpp"
 
 int main(){
-    vector<Studentai> A;
+    list<Studentai> A;
 
     string duom = "stud1000.txt";
     Testavimas(A, duom);
