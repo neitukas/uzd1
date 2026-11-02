@@ -54,10 +54,6 @@ void Vidurkiai(list<Studentai> & A){
         double nd_vidurkis = accumulate(studentas.pazymiai_nd.begin(), studentas.pazymiai_nd.end(), 0.0) / studentas.pazymiai_nd.size();
         double vidurkis = 0.4 * nd_vidurkis + 0.6 * studentas.pazymys_egzaminas;
         studentas.balas_vidurkis = vidurkis;
-        if(vidurkis<5)
-            studentas.skirstymas = 0;
-        else
-            studentas.skirstymas = 1;
     }
 }
 
@@ -87,7 +83,7 @@ void Rasymas(list<Studentai> & A){
     fr.close();
 }
 
-void Skirstymas(list<Studentai> & A){
+/*void Skirstymas(list<Studentai> & A){
     ofstream fr("stud_vargseliai.txt");
     ofstream ft("stud_galvuciai.txt");
 
@@ -108,9 +104,18 @@ void Skirstymas(list<Studentai> & A){
 
     fr.close();
     ft.close();
+}*/
+
+void Skirstymas_1(list<Studentai> & A, list<Studentai> & B, list<Studentai> & C){
+    for(const auto & studentas : A){
+        if(studentas.balas_vidurkis < 5)
+            B.push_back(studentas);
+        else
+            C.push_back(studentas);
+    }
 }
 
-void Testavimas(list<Studentai> & A, string & duomenys){
+void Testavimas(list<Studentai> & A, string & duomenys, list<Studentai> & Vargseliai, list<Studentai> & Galvuciai){
     cout<<"Duomenu failas: "<<duomenys<<endl;
 
     double laikas1 = MatuotiLaika([&](){
@@ -121,7 +126,7 @@ void Testavimas(list<Studentai> & A, string & duomenys){
     Rusiavimas(A);
 
     double laikas2 = MatuotiLaika([&](){
-            Skirstymas(A);
+            Skirstymas_1(A, Vargseliai, Galvuciai);
         });
     cout<<"Duomenu skirstymas: "<<laikas2<<" sek."<<endl;
 
