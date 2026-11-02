@@ -20,13 +20,18 @@ struct Studentai{
     int pazymys_egzaminas;
     double balas_vidurkis;
     double balas_mediana;
-    bool skirstymas;
 };
 
+void Skaitymas_ranka(Studentai);
+void Skaitymas_generavimas(Studentai);
 void Skaitymas_failo(Studentai);
 void Rusiavimas(Studentai);
 void Vidurkiai(Studentai);
 void Mediana(Studentai);
 void Rasymas(Studentai);
-void Testavimas(Studentai, string);
+void Testavimas(Studentai, string, Studentai, Studentai);
+
+void GeneruotiFailus(int, int, string);
 void Skirstymas(Studentai);
+
+void Skirstymas_1(Studentai, Studentai, Studentai);
