@@ -13,7 +13,8 @@ double MatuotiLaika(Funkcija f) {
     ).count();
 }
 
-void Skaitymas_failo(list<Studentai> & A, string & duomenys){
+template <typename Container>
+void Skaitymas_failo(Container & A, string & duomenys){
     ifstream fd(duomenys);
 
     if (!fd.is_open()) {
@@ -43,13 +44,23 @@ void Skaitymas_failo(list<Studentai> & A, string & duomenys){
     fd.close();
 }
 
-void Rusiavimas(list<Studentai> & A) {
-    A.sort([](const Studentai & a, const Studentai & b) {
-        return a.vardas < b.vardas;
-    });
+
+template <typename Container>
+void Rusiavimas(Container & A) {
+    auto palyginimas = [](const Studentai& a, const Studentai& b) {
+        return a.balas_vidurkis > b.balas_vidurkis;
+    };
+
+    if constexpr (is_same_v<Container, list<Studentai>>) {
+        A.sort(palyginimas);
+    }
+    else {
+        sort(A.begin(), A.end(), palyginimas);
+    }
 }
 
-void Vidurkiai(list<Studentai> & A){
+template <typename Container>
+void Vidurkiai(Container & A){
     for(auto & studentas : A){
         double nd_vidurkis = accumulate(studentas.pazymiai_nd.begin(), studentas.pazymiai_nd.end(), 0.0) / studentas.pazymiai_nd.size();
         double vidurkis = 0.4 * nd_vidurkis + 0.6 * studentas.pazymys_egzaminas;
@@ -57,7 +68,8 @@ void Vidurkiai(list<Studentai> & A){
     }
 }
 
-void Mediana(list<Studentai> & A){
+template <typename Container>
+void Mediana(Container & A){
     for(auto & studentas : A){
         vector<int> G;
         for(int pazymys : studentas.pazymiai_nd)
@@ -71,7 +83,8 @@ void Mediana(list<Studentai> & A){
     }
 }
 
-void Rasymas(list<Studentai> & A){
+template <typename Container>
+void Rasymas(Container & A){
     ofstream fr("rezu.txt");
 
     fr<<setw(20)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"<<setw(30)<<left<<"Galutinis balas (vid.)"<<setw(30)<<left<<"Galutinis balas (med.)"<<setw(30)<<left<<"Adresas"<<endl;
@@ -106,7 +119,8 @@ void Rasymas(list<Studentai> & A){
     ft.close();
 }*/
 
-void Skirstymas_1(list<Studentai> & A, list<Studentai> & B, list<Studentai> & C){
+template <typename Container>
+void Skirstymas_1(Container & A, Container & B, Container & C){
     for(const auto & studentas : A){
         if(studentas.balas_vidurkis < 5)
             B.push_back(studentas);
@@ -115,30 +129,46 @@ void Skirstymas_1(list<Studentai> & A, list<Studentai> & B, list<Studentai> & C)
     }
 }
 
-void Testavimas(list<Studentai> & A, string & duomenys, list<Studentai> & Vargseliai, list<Studentai> & Galvuciai){
-    cout<<"Duomenu failas: "<<duomenys<<endl;
-
-    double laikas1 = MatuotiLaika([&](){
-            Skaitymas_failo(A, duomenys);
+template <typename Container>
+void Skirstymas_2(Container & A, Container & B) {
+    auto p = remove_if(A.begin(), A.end(),
+        [&](const auto& x) {
+            if (x.balas_vidurkis < 5) {
+                B.push_back(x);
+                return true;
+            }
+            return false;
         });
-    cout<<"Failo nuskaitymas: "<<fixed<<setprecision(6)<<laikas1<<" sek. "<<endl;
+    A.erase(p, A.end());
+}
+
+void Testavimas(list<Studentai> & A, list<Studentai> & Vargseliai, list<Studentai> & Galvuciai, vector<Studentai> & Av, vector<Studentai> & Vargseliaiv, vector<Studentai> & Galvuciaiv, string & duomenys){
+    cout<<"| "<<duomenys<<" | ";
+
+    Skaitymas_failo(A, duomenys);
 
     Rusiavimas(A);
-
-    double laikas2 = MatuotiLaika([&](){
+    double laikas1 = MatuotiLaika([&](){
             Skirstymas_1(A, Vargseliai, Galvuciai);
         });
-    cout<<"Duomenu skirstymas: "<<laikas2<<" sek."<<endl;
+    cout<<laikas1<<" | ";
 
-    Vidurkiai(A);
-    Mediana(A);
+    double laikas2 = MatuotiLaika([&](){
+            Skirstymas_2(Vargseliai, Galvuciai);
+        });
+    cout<<laikas2<<" | ";
+
+    Skaitymas_failo(Av, duomenys);
+
+    Rusiavimas(Av);
 
     double laikas3 = MatuotiLaika([&](){
-            Rasymas(A);
+            Skirstymas_1(Av, Vargseliaiv, Galvuciaiv);
         });
-    cout<<"Duomenu rasymas: "<<laikas3<<" sek."<<endl;
+    cout<<laikas3<<" | ";
 
-    cout<<"Viso: "<< laikas1 + laikas2 + laikas3 <<" sek."<<endl;
-
-    cout<<endl;
+    double laikas4 = MatuotiLaika([&](){
+            Skirstymas_2(Vargseliaiv, Galvuciaiv);
+        });
+    cout<<laikas4<<" | "<<endl;
 }
