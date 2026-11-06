@@ -170,5 +170,26 @@ void Testavimas(list<Studentai> & A, list<Studentai> & Vargseliai, list<Studenta
     double laikas4 = MatuotiLaika([&](){
             Skirstymas_2(Vargseliaiv, Galvuciaiv);
         });
-    cout<<laikas4<<" | "<<endl;
+    cout<<laikas4<<" |"<<endl;
+}
+
+void GeneruotiFailus(int studentu_sk, int nd_skaicius, string failas){
+    ofstream fr(failas);
+    fr<<setw(20)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde";
+    for(int i=0; i<nd_skaicius; i++){
+        fr<<"ND"<<setw(10)<<left<<i+1;
+    }
+    fr<<"Egz."<<endl;
+    for(int i=0; i<studentu_sk; i++){
+
+        random_device seed;
+        mt19937 gen{seed()};
+        uniform_int_distribution<> dist(1, 10);
+
+        fr<<"Vardas"<<setw(14)<<left<<i+1<<"Pavarde"<<setw(13)<<left<<i+1;
+        for(int j=0; j<nd_skaicius+1; j++)
+            fr<<setw(11)<<left<<dist(gen)<<" ";
+        fr<<endl;
+    }
+    fr.close();
 }
