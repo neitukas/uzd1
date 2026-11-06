@@ -12,6 +12,13 @@ int main(){
     vector<Studentai> Galvuciaiv;
     vector<Studentai> Vargseliai2v;
 
+    /*GeneruotiFailus(1000, 5, "stud1000.txt");
+    GeneruotiFailus(10000, 5, "stud10000.txt");
+    GeneruotiFailus(100000, 5, "stud100000.txt");
+    GeneruotiFailus(1000000, 5, "stud1000000.txt");
+    GeneruotiFailus(10000000, 5, "stud10000000.txt");*/
+
+    cout<<"Laikai pateikiami mikrosekundemis:"<<endl;
     cout<<"| Duomenų failas | <List> 1 budu | <List> 2 budu | <Vector> 1 budu | <Vector> 2 budu> |"<<endl;
     cout<<"| -------------- | ------------- | ------------- | --------------- | ---------------- |"<<endl;
 
