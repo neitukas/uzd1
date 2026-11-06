@@ -8,7 +8,7 @@ double MatuotiLaika(Funkcija f) {
 
     auto pabaiga = chrono::high_resolution_clock::now();
 
-    return chrono::duration_cast<chrono::duration<double, micro>>(
+    return chrono::duration_cast<chrono::duration<double, milli>>(
         (pabaiga - pradzia) 
     ).count();
 }
