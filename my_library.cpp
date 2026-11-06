@@ -8,8 +8,8 @@ double MatuotiLaika(Funkcija f) {
 
     auto pabaiga = chrono::high_resolution_clock::now();
 
-    return chrono::duration_cast<chrono::duration<double>>(
-        pabaiga - pradzia
+    return chrono::duration_cast<chrono::duration<double, micro>>(
+        (pabaiga - pradzia) 
     ).count();
 }
 
@@ -147,11 +147,17 @@ void Testavimas(list<Studentai> & A, list<Studentai> & Vargseliai, list<Studenta
 
     Skaitymas_failo(A, duomenys);
 
+    Vargseliai.clear();
+    Galvuciai.clear();
+
     Rusiavimas(A);
     double laikas1 = MatuotiLaika([&](){
             Skirstymas_1(A, Vargseliai, Galvuciai);
         });
     cout<<laikas1<<" | ";
+
+    Vargseliai.clear();
+    Galvuciai.clear();
 
     double laikas2 = MatuotiLaika([&](){
             Skirstymas_2(Vargseliai, Galvuciai);
@@ -162,10 +168,16 @@ void Testavimas(list<Studentai> & A, list<Studentai> & Vargseliai, list<Studenta
 
     Rusiavimas(Av);
 
+    Vargseliaiv.clear();
+    Galvuciaiv.clear();
+
     double laikas3 = MatuotiLaika([&](){
             Skirstymas_1(Av, Vargseliaiv, Galvuciaiv);
         });
     cout<<laikas3<<" | ";
+
+    Vargseliaiv.clear();
+    Galvuciaiv.clear();
 
     double laikas4 = MatuotiLaika([&](){
             Skirstymas_2(Vargseliaiv, Galvuciaiv);
