@@ -10,6 +10,7 @@
 #include <random>
 #include <chrono>
 #include <list>
+#include <type_traits>
 
 using namespace std;
 
@@ -20,13 +21,4 @@ struct Studentai{
     int pazymys_egzaminas;
     double balas_vidurkis;
     double balas_mediana;
-    bool skirstymas;
 };
-
-void Skaitymas_failo(Studentai);
-void Rusiavimas(Studentai);
-void Vidurkiai(Studentai);
-void Mediana(Studentai);
-void Rasymas(Studentai);
-void Testavimas(Studentai, string);
-void Skirstymas(Studentai);
