@@ -18,7 +18,7 @@ int main(){
     GeneruotiFailus(1000000, 5, "stud1000000.txt");
     GeneruotiFailus(10000000, 5, "stud10000000.txt");*/
 
-    cout<<"Laikai pateikiami mikrosekundemis:"<<endl;
+    cout<<"Laikai pateikiami milisekundemis:"<<endl;
     cout<<"| Duomenų failas | <List> 1 budu | <List> 2 budu | <Vector> 1 budu | <Vector> 2 budu> |"<<endl;
     cout<<"| -------------- | ------------- | ------------- | --------------- | ---------------- |"<<endl;
 
