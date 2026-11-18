@@ -18,11 +18,13 @@ int main(){
     GeneruotiFailus(1000000, 5, "stud1000000.txt");
     GeneruotiFailus(10000000, 5, "stud10000000.txt");*/
 
-    cout<<"Laikai pateikiami milisekundemis:"<<endl;
-    cout<<"| Duomenų failas | <List> 1 budu | <List> 2 budu | <Vector> 1 budu | <Vector> 2 budu> |"<<endl;
-    cout<<"| -------------- | ------------- | ------------- | --------------- | ---------------- |"<<endl;
+    cout<<"| Duomenų failas | <List> 1 budu | <List> 2 budu | <Vector> 1 budu> | <Vector> 2 budu | <Vector> 3 budu |"<<endl;
+    cout<<"| -------------- | ------------- | ---------------- | --------------- |"<<endl;
 
-    string duom="stud1000.txt";
+    string duom="stud100.txt";
+    Testavimas(A, Vargseliai, Galvuciai, Av, Vargseliaiv, Galvuciaiv, duom);
+
+    duom="stud1000.txt";
     Testavimas(A, Vargseliai, Galvuciai, Av, Vargseliaiv, Galvuciaiv, duom);
 
     duom="stud10000.txt";
@@ -32,9 +34,6 @@ int main(){
     Testavimas(A, Vargseliai, Galvuciai, Av, Vargseliaiv, Galvuciaiv, duom);
 
     duom="stud1000000.txt";
-    Testavimas(A, Vargseliai, Galvuciai, Av, Vargseliaiv, Galvuciaiv, duom);
-
-    duom="stud10000000.txt";
     Testavimas(A, Vargseliai, Galvuciai, Av, Vargseliaiv, Galvuciaiv, duom);
     
     return 0;
