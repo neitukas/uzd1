@@ -5,12 +5,10 @@ int main(){
     list<Studentai> A;
     list<Studentai> Vargseliai;
     list<Studentai> Galvuciai;
-    list<Studentai> Vargseliai2;
 
     vector<Studentai> Av;
     vector<Studentai> Vargseliaiv;
     vector<Studentai> Galvuciaiv;
-    vector<Studentai> Vargseliai2v;
 
     cout<<"Ka noretumete padaryti?"<<endl;
     cout<<"1 - Failo generavimas;"<<endl;
