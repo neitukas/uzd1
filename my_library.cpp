@@ -87,19 +87,6 @@ void Mediana(Container & A){
 }
 
 template <typename Container>
-void Rasymas(Container & A, string & failas){
-    ofstream fr(failas);
-
-    fr<<setw(20)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"<<setw(30)<<left<<"Galutinis balas (vid.)"<<setw(30)<<left<<"Galutinis balas (med.)"<<setw(30)<<left<<"Skirstymas"<<setw(30)<<left<<"Adresas"<<endl;
-    fr<<"------------------------------------------------------------------------------------------------------------------------"<<endl;
-    for(const auto & studentas : A){
-        fr<<setw(20)<<left<<studentas.vardas<<setw(20)<<left<<studentas.pavarde<<setw(30)<<left<<fixed<<setprecision(2)<<studentas.balas_vidurkis<<
-        setw(30)<<left<<fixed<<setprecision(2)<<studentas.balas_mediana<<setw(30)<<left<<studentas.skirstymas<<setw(30)<<left<<&studentas<<endl;
-    }
-    fr.close();
-}
-
-template <typename Container>
 void Rasymas_suskirstytas(Container & Galvuciai, Container & Vargseliai, string & failas){
     ofstream fr(failas);
 
@@ -132,29 +119,6 @@ void Rasymas_suskirstytas(Container & Galvuciai, Container & Vargseliai, string 
 
     fr.close();
 }
-
-/*void Skirstymas(list<Studentai> & A){
-    ofstream fr("stud_vargseliai.txt");
-    ofstream ft("stud_galvuciai.txt");
-
-    for(const auto & studentas : A){
-        if(studentas.skirstymas == 0){
-            fr<<setw(14)<<left<<studentas.vardas<<setw(13)<<left<<studentas.pavarde;
-            for(int pazymys : studentas.pazymiai_nd)
-                fr<<setw(11)<<left<<pazymys<<" ";
-            fr<<studentas.pazymys_egzaminas<<endl;
-        }
-        else{
-            ft<<setw(14)<<left<<studentas.vardas<<setw(13)<<left<<studentas.pavarde;
-            for(int pazymys : studentas.pazymiai_nd)
-                ft<<setw(11)<<left<<pazymys<<" ";
-            ft<<studentas.pazymys_egzaminas<<endl;
-        }
-    }
-
-    fr.close();
-    ft.close();
-}*/
 
 template <typename Container>
 void Skirstymas_1(Container & A, Container & B, Container & C){
@@ -191,7 +155,7 @@ void Skirstymas_3(Container & A, Container & B) {
     }
 
     for (auto it = p; it != A.end(); ++it)
-        B.push_back(std::move(*it));
+        B.push_back(move(*it));
     A.erase(p, A.end());
 }
 
