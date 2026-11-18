@@ -8,7 +8,7 @@ double MatuotiLaika(Funkcija f) {
 
     auto pabaiga = chrono::high_resolution_clock::now();
 
-    return chrono::duration_cast<chrono::duration<double, milli>>(
+    return chrono::duration_cast<chrono::duration<double>>(
         (pabaiga - pradzia) 
     ).count();
 }
@@ -142,14 +142,24 @@ void Skirstymas_2(Container & A, Container & B) {
     A.erase(p, A.end());
 }
 
+template <typename Container>
+void Skirstymas_3(Container & A, Container & B) {
+    auto p = stable_partition(A.begin(), A.end(),
+        [](const auto& x) {
+            return x.balas_vidurkis >= 5;
+        });
+}
+
 void Testavimas(list<Studentai> & A, list<Studentai> & Vargseliai, list<Studentai> & Galvuciai, vector<Studentai> & Av, vector<Studentai> & Vargseliaiv, vector<Studentai> & Galvuciaiv, string & duomenys){
     cout<<"| "<<duomenys<<" | ";
 
+    A.clear();
     Skaitymas_failo(A, duomenys);
 
     Vargseliai.clear();
     Galvuciai.clear();
-
+    Vidurkiai(A);
+    Mediana(A);
     Rusiavimas(A);
     double laikas1 = MatuotiLaika([&](){
             Skirstymas_1(A, Vargseliai, Galvuciai);
@@ -158,19 +168,19 @@ void Testavimas(list<Studentai> & A, list<Studentai> & Vargseliai, list<Studenta
 
     Vargseliai.clear();
     Galvuciai.clear();
-
     double laikas2 = MatuotiLaika([&](){
-            Skirstymas_2(Vargseliai, Galvuciai);
+            Skirstymas_2(A, Galvuciai);
         });
     cout<<laikas2<<" | ";
 
+    Av.clear();
     Skaitymas_failo(Av, duomenys);
-
-    Rusiavimas(Av);
 
     Vargseliaiv.clear();
     Galvuciaiv.clear();
-
+    Vidurkiai(A);
+    Mediana(A);
+    Rusiavimas(Av);
     double laikas3 = MatuotiLaika([&](){
             Skirstymas_1(Av, Vargseliaiv, Galvuciaiv);
         });
@@ -178,11 +188,22 @@ void Testavimas(list<Studentai> & A, list<Studentai> & Vargseliai, list<Studenta
 
     Vargseliaiv.clear();
     Galvuciaiv.clear();
-
     double laikas4 = MatuotiLaika([&](){
-            Skirstymas_2(Vargseliaiv, Galvuciaiv);
+            Skirstymas_2(Av, Galvuciaiv);
         });
-    cout<<laikas4<<" |"<<endl;
+    cout<<laikas4<<" | ";
+
+    Av.clear();
+    Skaitymas_failo(Av, duomenys);
+    Vargseliaiv.clear();
+    Galvuciaiv.clear();
+    Vidurkiai(Av);
+    Mediana(Av);
+    Rusiavimas(Av);
+    double laikas5 = MatuotiLaika([&](){
+            Skirstymas_3(Av, Galvuciaiv);
+        });
+    cout<<laikas5<<" |"<<endl;
 }
 
 void GeneruotiFailus(int studentu_sk, int nd_skaicius, string failas){
