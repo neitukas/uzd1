@@ -148,6 +148,9 @@ void Skirstymas_3(Container & A, Container & B) {
         [](const auto& x) {
             return x.balas_vidurkis >= 5;
         });
+
+    B.insert(B.end(), p, A.end());
+    A.erase(p, A.end());
 }
 
 void Testavimas(list<Studentai> & A, list<Studentai> & Vargseliai, list<Studentai> & Galvuciai, vector<Studentai> & Av, vector<Studentai> & Vargseliaiv, vector<Studentai> & Galvuciaiv, string & duomenys){
@@ -178,8 +181,8 @@ void Testavimas(list<Studentai> & A, list<Studentai> & Vargseliai, list<Studenta
 
     Vargseliaiv.clear();
     Galvuciaiv.clear();
-    Vidurkiai(A);
-    Mediana(A);
+    Vidurkiai(Av);
+    Mediana(Av);
     Rusiavimas(Av);
     double laikas3 = MatuotiLaika([&](){
             Skirstymas_1(Av, Vargseliaiv, Galvuciaiv);
