@@ -144,12 +144,14 @@ void Skirstymas_2(Container & A, Container & B) {
 
 template <typename Container>
 void Skirstymas_3(Container & A, Container & B) {
-    auto p = stable_partition(A.begin(), A.end(),
-        [](const auto& x) {
-            return x.balas_vidurkis >= 5;
-        });
+    auto p = partition(A.begin(), A.end(),
+    [](const Studentai& S) {
+        return S.balas_vidurkis >= 5;
+    });
 
-    B.insert(B.end(), p, A.end());
+    B.reserve(B.size() + distance(p, A.end()));
+    for (auto it = p; it != A.end(); ++it)
+        B.push_back(move(*it));
     A.erase(p, A.end());
 }
 
