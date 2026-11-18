@@ -62,9 +62,12 @@ void Rusiavimas(Container & A) {
 template <typename Container>
 void Vidurkiai(Container & A){
     for(auto & studentas : A){
-        double nd_vidurkis = accumulate(studentas.pazymiai_nd.begin(), studentas.pazymiai_nd.end(), 0.0) / studentas.pazymiai_nd.size();
+        double nd_vidurkis = studentas.pazymiai_nd.empty()
+            ? 0.0
+            : accumulate(studentas.pazymiai_nd.begin(), studentas.pazymiai_nd.end(), 0.0) / studentas.pazymiai_nd.size();
         double vidurkis = 0.4 * nd_vidurkis + 0.6 * studentas.pazymys_egzaminas;
         studentas.balas_vidurkis = vidurkis;
+        studentas.skirstymas = vidurkis < 5 ? 0 : 1;
     }
 }
 
@@ -84,15 +87,49 @@ void Mediana(Container & A){
 }
 
 template <typename Container>
-void Rasymas(Container & A){
-    ofstream fr("rezu.txt");
+void Rasymas(Container & A, string & failas){
+    ofstream fr(failas);
 
-    fr<<setw(20)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"<<setw(30)<<left<<"Galutinis balas (vid.)"<<setw(30)<<left<<"Galutinis balas (med.)"<<setw(30)<<left<<"Adresas"<<endl;
+    fr<<setw(20)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"<<setw(30)<<left<<"Galutinis balas (vid.)"<<setw(30)<<left<<"Galutinis balas (med.)"<<setw(30)<<left<<"Skirstymas"<<setw(30)<<left<<"Adresas"<<endl;
     fr<<"------------------------------------------------------------------------------------------------------------------------"<<endl;
     for(const auto & studentas : A){
         fr<<setw(20)<<left<<studentas.vardas<<setw(20)<<left<<studentas.pavarde<<setw(30)<<left<<fixed<<setprecision(2)<<studentas.balas_vidurkis<<
-        setw(30)<<left<<fixed<<setprecision(2)<<studentas.balas_mediana<<setw(30)<<left<<&studentas<<endl;
+        setw(30)<<left<<fixed<<setprecision(2)<<studentas.balas_mediana<<setw(30)<<left<<studentas.skirstymas<<setw(30)<<left<<&studentas<<endl;
     }
+    fr.close();
+}
+
+template <typename Container>
+void Rasymas_suskirstytas(Container & Galvuciai, Container & Vargseliai, string & failas){
+    ofstream fr(failas);
+
+    if(!fr.is_open()){
+        cout<<"Nepavyko sukurti failo: "<<failas<<endl;
+        return;
+    }
+
+    fr<<"Vargseliai (galutinis balas < 5)"<<endl;
+    fr<<setw(20)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"
+      <<setw(30)<<left<<"Galutinis balas (vid.)"
+      <<setw(30)<<left<<"Galutinis balas (med.)"<<endl;
+    fr<<"-----------------------------------------------------------------------------------------------------"<<endl;
+    for(const auto & studentas : Vargseliai){
+        fr<<setw(20)<<left<<studentas.vardas<<setw(20)<<left<<studentas.pavarde
+          <<setw(30)<<left<<fixed<<setprecision(2)<<studentas.balas_vidurkis
+          <<setw(30)<<left<<fixed<<setprecision(2)<<studentas.balas_mediana<<endl;
+    }
+
+    fr<<endl<<"Galvuciai (galutinis balas >= 5)"<<endl;
+    fr<<setw(20)<<left<<"Vardas"<<setw(20)<<left<<"Pavarde"
+      <<setw(30)<<left<<"Galutinis balas (vid.)"
+      <<setw(30)<<left<<"Galutinis balas (med.)"<<endl;
+    fr<<"-----------------------------------------------------------------------------------------------------"<<endl;
+    for(const auto & studentas : Galvuciai){
+        fr<<setw(20)<<left<<studentas.vardas<<setw(20)<<left<<studentas.pavarde
+          <<setw(30)<<left<<fixed<<setprecision(2)<<studentas.balas_vidurkis
+          <<setw(30)<<left<<fixed<<setprecision(2)<<studentas.balas_mediana<<endl;
+    }
+
     fr.close();
 }
 
@@ -149,14 +186,17 @@ void Skirstymas_3(Container & A, Container & B) {
         return S.balas_vidurkis >= 5;
     });
 
-    B.reserve(B.size() + distance(p, A.end()));
+    if constexpr (is_same_v<Container, vector<Studentai>>) {
+        B.reserve(B.size() + distance(p, A.end()));
+    }
+
     for (auto it = p; it != A.end(); ++it)
-        B.push_back(move(*it));
+        B.push_back(std::move(*it));
     A.erase(p, A.end());
 }
 
 void Testavimas(list<Studentai> & A, list<Studentai> & Vargseliai, list<Studentai> & Galvuciai, vector<Studentai> & Av, vector<Studentai> & Vargseliaiv, vector<Studentai> & Galvuciaiv, string & duomenys){
-    cout<<"| "<<duomenys<<" | ";
+    cout<<"| "<<left<<setw(16)<<duomenys<<" | "<<right<<fixed<<setprecision(6);
 
     A.clear();
     Skaitymas_failo(A, duomenys);
@@ -169,14 +209,14 @@ void Testavimas(list<Studentai> & A, list<Studentai> & Vargseliai, list<Studenta
     double laikas1 = MatuotiLaika([&](){
             Skirstymas_1(A, Vargseliai, Galvuciai);
         });
-    cout<<laikas1<<" | ";
+    cout<<setw(13)<<laikas1<<" | ";
 
     Vargseliai.clear();
     Galvuciai.clear();
     double laikas2 = MatuotiLaika([&](){
             Skirstymas_2(A, Galvuciai);
         });
-    cout<<laikas2<<" | ";
+    cout<<setw(13)<<laikas2<<" | ";
 
     Av.clear();
     Skaitymas_failo(Av, duomenys);
@@ -189,14 +229,14 @@ void Testavimas(list<Studentai> & A, list<Studentai> & Vargseliai, list<Studenta
     double laikas3 = MatuotiLaika([&](){
             Skirstymas_1(Av, Vargseliaiv, Galvuciaiv);
         });
-    cout<<laikas3<<" | ";
+    cout<<setw(16)<<laikas3<<" | ";
 
     Vargseliaiv.clear();
     Galvuciaiv.clear();
     double laikas4 = MatuotiLaika([&](){
             Skirstymas_2(Av, Galvuciaiv);
         });
-    cout<<laikas4<<" | ";
+    cout<<setw(15)<<laikas4<<" | ";
 
     Av.clear();
     Skaitymas_failo(Av, duomenys);
@@ -208,7 +248,7 @@ void Testavimas(list<Studentai> & A, list<Studentai> & Vargseliai, list<Studenta
     double laikas5 = MatuotiLaika([&](){
             Skirstymas_3(Av, Galvuciaiv);
         });
-    cout<<laikas5<<" |"<<endl;
+    cout<<setw(15)<<laikas5<<" |"<<endl;
 }
 
 void GeneruotiFailus(int studentu_sk, int nd_skaicius, string failas){
