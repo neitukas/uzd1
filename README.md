@@ -1,16 +1,42 @@
 # Studentų rezultatų skirstymo programa
 
-## Funkcionalumas
+## v0.1
 
 - generuoja studentų duomenų failus;
 - nuskaito duomenis iš failo;
 - apskaičiuoja galutinį balą iš namų darbų vidurkio ir egzamino pažymio;
-- apskaičiuoja galutinį balą iš namų darbų medianos;
+- apskaičiuoja galutinį balą iš namų darbų ir egzamino medianos.
+
+## v0.2
+
+- generuoja studentų duomenų failus;
+- nuskaito duomenis iš failo;
 - studentus skirsto į „galvučius“ ir „vargšelius“:
   - vargšelis – galutinis balas mažesnis nei 5;
-  - galvūčius – galutinis balas ne mažesnis nei 5;
+  - galvučius – galutinis balas ne mažesnis nei 5;
+- matuoja, kiek laiko užtrunka duomenų nuskaitymas ir studentų suskirstymas.
+
+## v0.3
+
+- generuoja studentų duomenų failus;
+- nuskaito duomenis iš failo;
+- studentus skirsto į „galvučius“ ir „vargšelius“:
+  - vargšelis – galutinis balas mažesnis nei 5;
+  - galvučius – galutinis balas ne mažesnis nei 5;
+- palygina skirtingus studentų skirstymo būdus su `std::list` ir `std::vector` konteineriais laiko atžvilgiu.
+
+## v1.0
+
+- generuoja studentų duomenų failus;
+- nuskaito duomenis iš failo;
+- apskaičiuoja galutinį balą iš namų darbų vidurkio ir egzamino pažymio;
+- apskaičiuoja galutinį balą iš namų darbų ir egzamino medianos;
+- studentus skirsto į „galvučius“ ir „vargšelius“:
+  - vargšelis – galutinis balas mažesnis nei 5;
+  - galvučius – galutinis balas ne mažesnis nei 5;
 - išveda suskirstytus studentus į pasirinktą failą;
-- palygina skirtingus studentų skirstymo būdus su `std::list` ir `std::vector` konteineriais.
+- palygina skirtingus studentų skirstymo būdus su `std::list` ir `std::vector` konteineriais laiko atžvilgiu;
+- skirstymui naudojamas greičiausias skirstymo metodas - `std::vector` konteineris ir skirstymas su std::partition.
 
 ## Reikalavimai
 
@@ -34,7 +60,7 @@ Programa atidarius pateikia meniu:
 4 - Baigti darba.
 ```
 
-## Naudojimas
+## v1.0 naudojimas
 
 ### Duomenų failo generavimas
 
