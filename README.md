@@ -41,7 +41,7 @@ Skirstymui naudojamas greičiausias skirstymo metodas - `std::vector` konteineri
 
 ## v1.0 greičio testų rezultatai
 
-| Duomenų failas | <List> 1 budu | <List> 2 budu | <Vector> 1 budu> | <Vector> 2 budu | <Vector> 3 budu |
+| Duomenų failas | List 1 būdu | List 2 būdu | Vector 1 būdu | Vector 2 būdu | Vector 3 būdu |
 | -------------- | ------------- | ------------- | ---------------- | --------------- | --------------- |
 | stud100.txt | 2.142e-05 | 1.2684e-05 | 3.1288e-05 | 6.693e-06 | 7.213e-06 |
 | stud1000.txt | 0.000257001 | 0.000107922 | 0.000331571 | 5.9171e-05 | 6.7436e-05 |
