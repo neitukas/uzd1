@@ -59,14 +59,26 @@ Skirstymui naudojamas greičiausias skirstymo metodas - `std::vector` konteineri
 ## Reikalavimai
 
 - Su C++ kompiliatoriumi suderinama operacinė sistema;
-- G++ kompiliatorius, palaikantis C++11 ar naujesnę versiją.
+- G++ kompiliatorius, palaikantis C++11 ar naujesnę versiją;
+- Įdiegta CMake sistema (versija ne mažesnė nei 3.10.0).
+
+## Įdiegimas su CMake
+
+1. Atidarykite terminalą projekto aplanke;
+2. Paleiskite komandą:
+   ```text
+   cmake CMakeLists.txt
+   ```
+3. Paleiskite komandą:
+   ```text
+   cmake --build .
+   ```
 
 ## Kompiliavimas
 
-Paleiskite terminalą projekto aplanke:
-
-```bash
-g++ -std=c++11 main.cpp -o main
+Įdiegus programą su CMake, atidarykite terminalą projekto aplanke ir paleiskite komandą:
+```text
+./main
 ```
 
 Programa atidarius pateikia meniu:
