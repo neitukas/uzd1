@@ -36,7 +36,18 @@
   - galvučius – galutinis balas ne mažesnis nei 5;
 - išveda suskirstytus studentus į pasirinktą failą;
 - palygina skirtingus studentų skirstymo būdus su `std::list` ir `std::vector` konteineriais laiko atžvilgiu;
-- skirstymui naudojamas greičiausias skirstymo metodas - `std::vector` konteineris ir skirstymas su std::partition.
+
+Skirstymui naudojamas greičiausias skirstymo metodas - `std::vector` konteineris ir skirstymas su std::partition.
+
+## v1.0 greičio testų rezultatai
+
+| Duomenų failas | <List> 1 budu | <List> 2 budu | <Vector> 1 budu> | <Vector> 2 budu | <Vector> 3 budu |
+| -------------- | ------------- | ------------- | ---------------- | --------------- | --------------- |
+| stud100.txt | 2.142e-05 | 1.2684e-05 | 3.1288e-05 | 6.693e-06 | 7.213e-06 |
+| stud1000.txt | 0.000257001 | 0.000107922 | 0.000331571 | 5.9171e-05 | 6.7436e-05 |
+| stud10000.txt | 0.00279957 | 0.00142317 | 0.00409161 | 0.000720801 | 0.000665928 |
+| stud100000.txt | 0.0346587 | 0.0242837 | 0.0386053 | 0.0138179 | 0.00689135 |
+| stud1000000.txt | 0.377681 | 0.289475 | 0.447638 | 0.198554 | 0.0698471 |
 
 ## Reikalavimai
 
