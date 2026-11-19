@@ -10,6 +10,9 @@
 #include <random>
 #include <chrono>
 #include <list>
+#include <type_traits>
+#include <sstream>
+#include <utility>
 
 using namespace std;
 
@@ -20,4 +23,5 @@ struct Studentai{
     int pazymys_egzaminas;
     double balas_vidurkis;
     double balas_mediana;
+    int skirstymas = -1;
 };
