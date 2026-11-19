@@ -1,5 +1,12 @@
 # Studentų rezultatų skirstymo programa
 
+## v.pradinė
+
+- generuoja studentų duomenų failus;
+- nuskaito duomenis, įvestus rankiniu būdu;
+- apskaičiuoja galutinį balą iš namų darbų vidurkio ir egzamino pažymio;
+- apskaičiuoja galutinį balą iš namų darbų ir egzamino medianos.
+
 ## v0.1
 
 - generuoja studentų duomenų failus;
