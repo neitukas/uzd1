@@ -9,6 +9,8 @@
 #include <limits>
 #include <random>
 #include <chrono>
+#include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -22,13 +24,26 @@ struct Studentai{
     bool skirstymas;
 };
 
-void Skaitymas_ranka(Studentai);
-void Skaitymas_generavimas(Studentai);
-void Skaitymas_failo(Studentai);
-void Rusiavimas(Studentai);
-void Vidurkiai(Studentai);
-void Mediana(Studentai);
-void Rasymas(Studentai);
+template <typename Funkcija>
+long long MatuotiLaika(Funkcija f){
+    auto pradzia = chrono::high_resolution_clock::now();
 
-void GeneruotiFailus(int, int, string);
-void Skirstymas(Studentai);
+    f();
+
+    auto pabaiga = chrono::high_resolution_clock::now();
+
+    return chrono::duration_cast<chrono::microseconds>(
+        pabaiga - pradzia
+    ).count();
+}
+
+void Skaitymas_ranka(vector<Studentai> & A);
+void Skaitymas_generavimas(vector<Studentai> & A);
+void Skaitymas_failo(vector<Studentai> & A);
+void Rusiavimas(vector<Studentai> & A);
+void Rusiavimas_galutinis(vector<Studentai> & A);
+void Vidurkiai(vector<Studentai> & A);
+void Mediana(vector<Studentai> & A);
+void Rasymas(vector<Studentai> & A);
+void GeneruotiFailus(int studentu_sk, int nd_skaicius, string failas);
+void Skirstymas(vector<Studentai> & A);
