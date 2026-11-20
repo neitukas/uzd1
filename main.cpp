@@ -1,5 +1,4 @@
 #include "main.h"
-#include "my_library.cpp"
 
 int main(){
     vector<Studentai> A;
@@ -30,9 +29,25 @@ int main(){
         cout<<"Duomenu nuskaitymo laikas: "<<laikas<<" mikrosek."<<endl;
     }
 
-    Rusiavimas(A);
     Vidurkiai(A);
     Mediana(A);
+
+    cout<<"Pagal ka norite rusiuoti?"<<endl<<"(1) Pagal varda"<<endl<<"(2) Pagal galutini bala (vid.)"<<endl;
+    while(isvestis!=1 && isvestis!=2){
+        cin>>isvestis;
+        if(!cin){
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                isvestis=0;
+                cout<<"Netinkama ivestis. Bandykite dar karta."<<endl;
+                continue;
+            }
+        else if(isvestis==1)
+            Rusiavimas(A);
+        else if(isvestis==2)
+            Rusiavimas_galutinis(A);
+    }
+
     Rasymas(A);
 
     auto laikas = MatuotiLaika([&](){
