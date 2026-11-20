@@ -1,18 +1,5 @@
 #include "main.h"
 
-template <typename Funkcija>
-long long MatuotiLaika(Funkcija f) {
-    auto pradzia = chrono::high_resolution_clock::now();
-
-    f();
-
-    auto pabaiga = chrono::high_resolution_clock::now();
-
-    return chrono::duration_cast<chrono::microseconds>(
-        pabaiga - pradzia
-    ).count();
-}
-
 void Skaitymas_ranka(vector<Studentai> & A){
     int n=0;
     cout<<"Iveskite studentu skaiciu: ";
@@ -156,6 +143,13 @@ void Rusiavimas(vector<Studentai> & A) {
     sort(A.begin(), A.end(),
          [](const Studentai & a, const Studentai & b) {
              return a.vardas < b.vardas;
+         });
+}
+
+void Rusiavimas_galutinis(vector<Studentai> & A) {
+    sort(A.begin(), A.end(),
+         [](const Studentai & a, const Studentai & b) {
+             return a.balas_vidurkis < b.balas_vidurkis;
          });
 }
 
