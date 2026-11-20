@@ -1,5 +1,4 @@
 #include "main.h"
-#include "my_library.cpp"
 
 int main(){
     list<Studentai> A;
